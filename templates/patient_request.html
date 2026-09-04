@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Request Blood{% endblock %}
+{% block content %}
+<a href="{{ url_for('patient_dashboard') }}" class="btn btn-sm btn-outline-secondary mb-3">← Back to dashboard</a>
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow-sm"><div class="card-body">
+      <h2 class="mb-4">➕ Request Blood</h2>
+      <form method="POST">
+        <div class="mb-3">
+          <label class="form-label">Blood group needed</label>
+          <select name="blood_group" class="form-select" required>
+            {% for bg in blood_groups %}<option value="{{ bg }}">{{ bg }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Units needed</label>
+          <input type="number" name="units" min="1" value="1" class="form-control" required>
+        </div>
+        <button class="btn btn-danger w-100">Submit Request</button>
+      </form>
+      <p class="text-muted mt-3 mb-0">
+        Your name, phone and city are taken from your profile and sent with the request
+        so the blood bank can contact you.
+      </p>
+    </div></div>
+  </div>
+</div>
+{% endblock %}

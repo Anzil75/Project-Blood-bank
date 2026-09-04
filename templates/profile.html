@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}My Profile{% endblock %}
+{% block content %}
+<a href="{{ url_for(session.get('role') + '_dashboard') }}" class="btn btn-sm btn-outline-secondary mb-3">← Back to dashboard</a>
+<div class="row justify-content-center">
+  <div class="col-md-7">
+    <div class="card shadow-sm"><div class="card-body">
+      <h2 class="mb-4">👤 My Profile</h2>
+
+      <div class="mb-3">
+        <label class="form-label text-muted">Email (your login — cannot be changed)</label>
+        <input type="text" class="form-control" value="{{ user.email }}" disabled>
+      </div>
+      <div class="mb-4">
+        <span class="badge bg-danger text-uppercase">{{ user.role }}</span>
+      </div>
+
+      <form method="POST">
+        <div class="mb-3">
+          <label class="form-label">Full name</label>
+          <input type="text" name="name" class="form-control" value="{{ user.name or '' }}" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Phone number</label>
+          <input type="text" name="phone" class="form-control" value="{{ user.phone or '' }}" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Blood group</label>
+          <select name="blood_group" class="form-select" required>
+            {% for bg in blood_groups %}
+            <option value="{{ bg }}" {% if bg == user.blood_group %}selected{% endif %}>{{ bg }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">City / area</label>
+          <input type="text" name="city" class="form-control" value="{{ user.city or '' }}" required>
+        </div>
+        <button class="btn btn-danger">Save changes</button>
+      </form>
+    </div></div>
+  </div>
+</div>
+{% endblock %}

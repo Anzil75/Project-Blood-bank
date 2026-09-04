@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Search Blood Stock{% endblock %}
+{% block content %}
+<a href="{{ url_for('patient_dashboard') }}" class="btn btn-sm btn-outline-secondary mb-3">← Back to dashboard</a>
+<h2 class="mb-4">🔍 Available Blood Stock</h2>
+
+<div class="row g-3">
+  {% for bg in blood_groups %}
+  <div class="col-6 col-md-3">
+    <div class="card text-center shadow-sm h-100">
+      <div class="card-body">
+        <div class="display-5 fw-bold text-danger">{{ bg }}</div>
+        <div class="fs-4">{{ inventory[bg] }} <small class="text-muted">units</small></div>
+        {% if inventory[bg] > 0 %}
+          <span class="badge bg-success">Available</span>
+        {% else %}
+          <span class="badge bg-secondary">Out of stock</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="mt-4">
+  <a href="{{ url_for('patient_request') }}" class="btn btn-danger">Need blood? Make a request →</a>
+</div>
+{% endblock %}

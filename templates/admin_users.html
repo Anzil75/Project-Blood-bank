@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}All Users{% endblock %}
+{% block content %}
+<a href="{{ url_for('admin_dashboard') }}" class="btn btn-sm btn-outline-secondary mb-3">← Back to dashboard</a>
+<h2 class="mb-4">👥 All Users</h2>
+
+{% if users|length == 0 %}
+  <div class="alert alert-info">No donors or patients have registered yet.</div>
+{% else %}
+<div class="card shadow-sm"><div class="card-body">
+  <table class="table table-striped mb-0">
+    <thead class="table-danger">
+      <tr><th>Name</th><th>Email</th><th>Role</th><th>Blood group</th><th>City</th><th>Phone</th></tr>
+    </thead>
+    <tbody>
+      {% for u in users %}
+      <tr>
+        <td>{{ u.name }}</td>
+        <td>{{ u.email }}</td>
+        <td>
+          {% if u.role == 'donor' %}<span class="badge bg-primary">donor</span>
+          {% else %}<span class="badge bg-success">patient</span>{% endif %}
+        </td>
+        <td class="fw-bold">{{ u.blood_group }}</td>
+        <td>{{ u.city }}</td>
+        <td>{{ u.phone }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div></div>
+{% endif %}
+{% endblock %}

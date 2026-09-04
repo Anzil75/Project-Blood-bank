@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Emergency List{% endblock %}
+{% block content %}
+<a href="{{ url_for('donor_dashboard') }}" class="btn btn-sm btn-outline-secondary mb-3">← Back to dashboard</a>
+<h2 class="mb-4">🚨 Emergency List — patients waiting for blood</h2>
+
+{% if requests|length == 0 %}
+  <div class="alert alert-success">No pending requests right now. All caught up! 🎉</div>
+{% else %}
+<div class="card shadow-sm"><div class="card-body">
+  <table class="table align-middle mb-0">
+    <thead class="table-danger">
+      <tr><th>Blood group</th><th>Units needed</th><th>City</th><th>Requested on</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for r in requests %}
+      <tr>
+        <td class="fw-bold fs-5">{{ r.blood_group }}</td>
+        <td>{{ r.units }}</td>
+        <td>{{ r.city }}</td>
+        <td><small class="text-muted">{{ r.created_at[:10] }}</small></td>
+        <td class="text-end">
+          <a href="{{ url_for('donor_donate', bg=r.blood_group) }}" class="btn btn-sm btn-danger">Donate {{ r.blood_group }}</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div></div>
+{% endif %}
+{% endblock %}

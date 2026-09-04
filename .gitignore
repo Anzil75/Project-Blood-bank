@@ -1,0 +1,7 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Firebase secret key — NEVER share or upload this file
+serviceAccountKey.json

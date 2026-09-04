@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Patient Dashboard{% endblock %}
+{% block content %}
+<h2 class="mb-4">🧑‍⚕️ Patient Dashboard</h2>
+<p class="text-muted">Welcome, {{ session.get('name') }}!</p>
+
+<div class="row g-3 mb-4">
+  <div class="col-6 col-md-4">
+    <div class="card text-center shadow-sm"><div class="card-body">
+      <div class="display-6 fw-bold text-danger">{{ total_units }}</div>
+      <div class="text-muted">Total units available</div>
+    </div></div>
+  </div>
+  <div class="col-6 col-md-4">
+    <div class="card text-center shadow-sm"><div class="card-body">
+      <div class="display-6 fw-bold text-warning">{{ my_pending }}</div>
+      <div class="text-muted">Your pending requests</div>
+    </div></div>
+  </div>
+</div>
+
+<div class="d-flex gap-2 flex-wrap">
+  <a href="{{ url_for('patient_search') }}" class="btn btn-danger btn-lg">🔍 Search Blood Stock</a>
+  <a href="{{ url_for('patient_request') }}" class="btn btn-outline-danger btn-lg">➕ Request Blood</a>
+  <a href="{{ url_for('patient_my_requests') }}" class="btn btn-outline-danger btn-lg">📋 My Requests</a>
+  <a href="{{ url_for('profile') }}" class="btn btn-outline-secondary btn-lg">👤 My Profile</a>
+</div>
+{% endblock %}

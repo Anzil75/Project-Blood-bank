@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Manage Blood Stock{% endblock %}
+{% block content %}
+<a href="{{ url_for('admin_dashboard') }}" class="btn btn-sm btn-outline-secondary mb-3">← Back to dashboard</a>
+<h2 class="mb-4">🩸 Blood Stock</h2>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <table class="table table-bordered align-middle mb-0">
+      <thead class="table-danger">
+        <tr><th>Blood group</th><th>Units in stock</th><th style="width:220px">Update stock</th></tr>
+      </thead>
+      <tbody>
+        {% for bg in blood_groups %}
+        <tr>
+          <td class="fw-bold fs-5">{{ bg }}</td>
+          <td class="fs-5">{{ inventory[bg] }}</td>
+          <td>
+            <form method="POST" class="d-flex gap-2">
+              <input type="hidden" name="blood_group" value="{{ bg }}">
+              <input type="number" name="units" min="0" value="{{ inventory[bg] }}"
+                     class="form-control form-control-sm" style="width:100px">
+              <button class="btn btn-sm btn-danger">Set</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<p class="text-muted mt-2">Set the number of units available for each blood group.</p>
+{% endblock %}

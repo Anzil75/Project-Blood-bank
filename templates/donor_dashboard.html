@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Donor Dashboard{% endblock %}
+{% block content %}
+<h2 class="mb-4">🩸 Donor Dashboard</h2>
+<p class="text-muted">Welcome, {{ session.get('name') }}! Thank you for helping save lives.</p>
+
+<div class="row g-3 mb-4">
+  <div class="col-6 col-md-4">
+    <div class="card text-center shadow-sm"><div class="card-body">
+      <div class="display-6 fw-bold text-danger">{{ total_units }}</div>
+      <div class="text-muted">Units currently in the bank</div>
+    </div></div>
+  </div>
+  <div class="col-6 col-md-4">
+    <div class="card text-center shadow-sm"><div class="card-body">
+      <div class="display-6 fw-bold text-warning">{{ emergency_count }}</div>
+      <div class="text-muted">Open emergency needs</div>
+    </div></div>
+  </div>
+</div>
+
+<div class="d-flex gap-2 flex-wrap">
+  <a href="{{ url_for('donor_donate') }}" class="btn btn-danger btn-lg">🩸 Donate Blood</a>
+  <a href="{{ url_for('donor_inventory') }}" class="btn btn-outline-danger btn-lg">📊 View Inventory</a>
+  <a href="{{ url_for('donor_emergency') }}" class="btn btn-outline-danger btn-lg">🚨 Emergency List</a>
+  <a href="{{ url_for('profile') }}" class="btn btn-outline-secondary btn-lg">👤 My Profile</a>
+</div>
+{% endblock %}

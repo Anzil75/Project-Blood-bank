@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<h2 class="mb-4">🛠️ Admin Dashboard</h2>
+
+<div class="row g-3 mb-4">
+  <div class="col-6 col-md-3">
+    <div class="card text-center shadow-sm"><div class="card-body">
+      <div class="display-6 fw-bold text-danger">{{ total_units }}</div>
+      <div class="text-muted">Units in stock</div>
+    </div></div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card text-center shadow-sm"><div class="card-body">
+      <div class="display-6 fw-bold">{{ total_donors }}</div>
+      <div class="text-muted">Donors</div>
+    </div></div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card text-center shadow-sm"><div class="card-body">
+      <div class="display-6 fw-bold">{{ total_patients }}</div>
+      <div class="text-muted">Patients</div>
+    </div></div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card text-center shadow-sm"><div class="card-body">
+      <div class="display-6 fw-bold text-warning">{{ pending }}</div>
+      <div class="text-muted">Pending requests</div>
+    </div></div>
+  </div>
+</div>
+
+<div class="d-flex gap-2 flex-wrap">
+  <a href="{{ url_for('admin_inventory') }}" class="btn btn-danger btn-lg">🩸 Manage Blood Stock</a>
+  <a href="{{ url_for('admin_users') }}" class="btn btn-outline-danger btn-lg">👥 View All Users</a>
+  <a href="{{ url_for('admin_requests') }}" class="btn btn-outline-danger btn-lg">
+    📋 Blood Requests
+    {% if pending %}<span class="badge bg-danger">{{ pending }}</span>{% endif %}
+  </a>
+</div>
+{% endblock %}

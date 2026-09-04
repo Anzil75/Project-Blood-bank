@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Blood Requests{% endblock %}
+{% block content %}
+<a href="{{ url_for('admin_dashboard') }}" class="btn btn-sm btn-outline-secondary mb-3">← Back to dashboard</a>
+<h2 class="mb-4">📋 Blood Requests</h2>
+
+{% if requests|length == 0 %}
+  <div class="alert alert-info">No blood requests yet. When a patient requests blood, it will appear here for you to accept or reject.</div>
+{% else %}
+<div class="card shadow-sm"><div class="card-body">
+  <table class="table align-middle mb-0">
+    <thead class="table-danger">
+      <tr><th>Patient</th><th>Blood group</th><th>Units</th><th>City</th><th>Status</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+      {% for r in requests %}
+      <tr>
+        <td>{{ r.patient_name }}<br><small class="text-muted">{{ r.phone }}</small></td>
+        <td class="fw-bold fs-5">{{ r.blood_group }}</td>
+        <td>{{ r.units }}</td>
+        <td>{{ r.city }}</td>
+        <td>
+          {% if r.status == 'pending' %}<span class="badge bg-warning text-dark">pending</span>
+          {% elif r.status == 'accepted' %}<span class="badge bg-success">accepted</span>
+          {% else %}<span class="badge bg-secondary">rejected</span>{% endif %}
+        </td>
+        <td>
+          {% if r.status == 'pending' %}
+          <form method="POST" action="{{ url_for('admin_handle_request', req_id=r.id, action='accept') }}" class="d-inline">
+            <button class="btn btn-sm btn-success">Accept</button>
+          </form>
+          <form method="POST" action="{{ url_for('admin_handle_request', req_id=r.id, action='reject') }}" class="d-inline">
+            <button class="btn btn-sm btn-outline-danger">Reject</button>
+          </form>
+          {% else %}—{% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div></div>
+{% endif %}
+{% endblock %}
